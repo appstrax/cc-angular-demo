@@ -12,6 +12,13 @@ import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// import the database library
+import { database } from '@appstrax/database';
+
+// initialize the database service
+const apiUrl = 'https://appstrax-database-api-ekdidi.codecapsules.co.za/'; // eg. appstrax-database-api-snidtu.codecapsules.co.za
+database.init(apiUrl);
+
 @NgModule({
   declarations: [
     AppComponent

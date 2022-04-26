@@ -1,32 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Task as Task } from './services/task.service';
+import { Task as Task, TaskService } from './services/task.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public tasks: Task[] = [];
   public name: string = '';
 
-  addTask() {
-    const task = new Task();
-    task.id = (new Date()).getTime() + '';
+  constructor(private taskService: TaskService) {
+  }
+
+  async ngOnInit() {
+    this.tasks = await this.taskService.find();
+  }
+
+  async addTask() {
+    let task = new Task();
     task.name = this.name;
+
+    task = await this.taskService.save(task);
 
     this.tasks.push(task);
     this.name = '';
   }
 
-  removeTask(task: Task) {
+  async removeTask(task: Task) {
+    await this.taskService.delete(task.id);
     this.tasks = this.tasks.filter(x => x.id != task.id);
   }
 
-  toggleTaskComplete(todo: Task) {
-    todo.complete = !todo.complete;
+  async toggleTaskComplete(task: Task) {
+    task.complete = !task.complete;
+    await this.taskService.save(task);
   }
 
 }

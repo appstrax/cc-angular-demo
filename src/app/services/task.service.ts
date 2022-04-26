@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { CrudService, Model, Ignore } from '@appstrax/database';
 
-export class Task {
-  id: string = '';
+export class Task extends Model {
+
   name: string = '';
   complete: boolean = false;
 }
@@ -9,7 +10,9 @@ export class Task {
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
+export class TaskService extends CrudService<Task> {
 
-  constructor() { }
+  constructor() {
+    super('tasks', Task);
+  }
 }
