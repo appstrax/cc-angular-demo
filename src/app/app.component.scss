@@ -1,0 +1,13 @@
+.w-100 {
+  width: 100%;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding: 5px;
+}
